@@ -1,11 +1,13 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-    <h1>Welcome to Study Group Finder</h1>
-    <p class="lead">Connect with students to form study groups for your favorite subjects! 📚</p>
-    {% if session.user_id %}
-        <p>Welcome back, {{ session.username }}! Check out <a href="{{ url_for('groups') }}">available groups</a> or <a href="{{ url_for('create_group') }}">create your own</a>.</p>
-    {% else %}
-        <p>Get started by <a href="{{ url_for('register') }}">registering</a> or <a href="{{ url_for('login') }}">logging in</a>.</p>
-    {% endif %}
+    <div class="home-content">
+        <h1 class="text-white">Welcome to Study Group Finder</h1>
+        <p class="lead text-white">Connect with students to form study groups for your favorite subjects! 📚</p>
+        {% if session.user_id %}
+            <p class="text-white">Welcome back, {{ session.username }}! Check out <a href="{{ url_for('groups') }}" class="btn btn-outline-light btn-sm">available groups</a>, <a href="{{ url_for('my_groups') }}" class="btn btn-outline-light btn-sm">your groups</a>, or <a href="{{ url_for('create_group') }}" class="btn btn-outline-light btn-sm">create your own</a>.</p>
+        {% else %}
+            <p class="text-white">Get started by <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-sm">registering</a> or <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-sm">logging in</a>.</p>
+        {% endif %}
+    </div>
 {% endblock %}

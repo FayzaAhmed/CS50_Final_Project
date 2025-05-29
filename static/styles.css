@@ -1,0 +1,78 @@
+body {
+    background-image: url('/static/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.5); /* Maintain lighter overlay */
+    min-height: 100vh; /* Ensure body fills viewport */
+    margin: 0;
+    padding: 0;
+}
+.navbar-brand {
+    font-weight: bold;
+}
+.navbar {
+    background-color: #343a40;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure navbar stays above content */
+}
+.content-wrapper {
+    margin-top: 60px; /* Offset for fixed navbar */
+    min-height: calc(100vh - 120px); /* Adjust for navbar and footer height */
+    padding: 2rem 1rem; /* Add padding for non-homepage content */
+}
+.home-content {
+    padding: 5rem 2rem; /* Increased padding for homepage */
+    text-align: center;
+}
+.page-content {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 1200px; /* Limit width for readability */
+    margin: 0 auto; /* Center the content */
+}
+.card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+.card:hover, .group-card:hover {
+    transform: scale(1.03);
+}
+.form-control {
+    border-radius: 8px;
+}
+.btn-primary {
+    border-radius: 8px;
+}
+.list-group-item {
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+.footer {
+    text-align: center;
+    padding: 0.5rem;
+    background-color: #343a40;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.text-white {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Maintain subtle shadow */
+}
+.btn-outline-light {
+    color: #ffffff;
+    border-color: #ffffff;
+    margin: 0 5px;
+}
+.btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #343a40;
+    border-color: #ffffff;
+}
