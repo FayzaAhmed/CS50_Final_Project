@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Study Groups{% endblock %}
+{% block content %}
+    <h2>Study Groups</h2>
+    {% if groups %}
+        <div class="row">
+            {% for group in groups %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ group[1] }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ group[2] }}</h6>
+                            <p class="card-text">{{ group[3] }}</p>
+                            <p class="card-text"><small class="text-muted">Created by: {{ group[4] }}</small></p>
+                            <!-- Add join functionality later -->
+                            <a href="#" class="btn btn-outline-primary">Join Group</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No study groups available. <a href="{{ url_for('create_group') }}">Create one!</a></p>
+    {% endif %}
+{% endblock %}
