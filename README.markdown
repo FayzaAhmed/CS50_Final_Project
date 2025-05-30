@@ -27,7 +27,7 @@ Study Group Finder is a web-based application built with Flask that allows users
 ### Setup
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/FayzaAhmed/CS50_Final_Project 
    cd study_group_finder
    ```
 2. Install dependencies:
