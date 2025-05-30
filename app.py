@@ -84,6 +84,14 @@ def migrate_db():
     conn.commit()
     conn.close()
 
+# Prevent caching during development
+@app.after_request
+def add_header(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
+
 # Home route
 @app.route('/')
 def index():
@@ -336,11 +344,6 @@ def group_details(group_id):
     c.execute("SELECT users.username FROM users JOIN group_members ON users.id = group_members.user_id "
               "WHERE group_members.group_id = ?", (group_id,))
     members = c.fetchall()
-    # Get messages
-    c.execute("SELECT messages.content, users.username, messages.timestamp "
-              "FROM messages JOIN users ON messages.user_id = users.id "
-              "WHERE messages.group_id = ? ORDER BY messages.timestamp", (group_id,))
-    messages = c.fetchall()
     # Get tags
     c.execute("SELECT tags.name FROM tags JOIN group_tags ON tags.id = group_tags.tag_id "
               "WHERE group_tags.group_id = ?", (group_id,))
@@ -365,6 +368,11 @@ def group_details(group_id):
             flash('Message posted!', 'success')
         else:
             flash('Message cannot be empty.', 'danger')
+    # Fetch messages after handling POST to include the new message
+    c.execute("SELECT messages.content, users.username, messages.timestamp "
+              "FROM messages JOIN users ON messages.user_id = users.id "
+              "WHERE messages.group_id = ? ORDER BY messages.timestamp", (group_id,))
+    messages = c.fetchall()
     # Mark notifications as read
     c.execute("UPDATE notifications SET read = TRUE WHERE user_id = ? AND group_id = ?",
               (session['user_id'], group_id))
@@ -557,6 +565,13 @@ def notifications():
         notification_count = 0
     conn.close()
     return render_template('notifications.html', notifications=notifications, notification_count=notification_count)
+
+@app.after_request
+def add_header(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
 
 if __name__ == '__main__':
     init_db()

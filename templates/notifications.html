@@ -7,10 +7,16 @@
             <ul class="list-group">
                 {% for notification in notifications %}
                     <li class="list-group-item">
-                        <strong>{{ notification[1] }}</strong> ({{ notification[2] }}): 
-                        {{ notification[3] or notification[4] or 'New activity' }}
+                        <strong>{{ notification[1] }}</strong> - 
+                        {% if notification[2] == 'message' %}
+                            New message: {{ notification[3] or 'A new message was posted' }}
+                        {% elif notification[2] == 'announcement' %}
+                            New announcement: {{ notification[4] or 'A new announcement was posted' }}
+                        {% else %}
+                            New activity
+                        {% endif %}
                         <a href="{{ url_for('group_details', group_id=notification[5]) }}" 
-                           class="btn btn-primary btn-sm">View</a>
+                           class="btn btn-primary btn-sm float-end">View</a>
                     </li>
                 {% endfor %}
             </ul>
