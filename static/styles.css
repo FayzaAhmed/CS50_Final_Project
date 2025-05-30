@@ -27,16 +27,18 @@ body {
 .home-content {
     padding: 5rem 2rem; /* Increased padding for homepage */
     text-align: center;
+    margin-top: 95px;
 }
 .page-content {
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
     border-radius: 10px;
     padding: 2rem;
     max-width: 1200px; /* Limit width for readability */
     margin: 0 auto; /* Center the content */
 }
 .card {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(231, 229, 236, 0.8);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
@@ -47,9 +49,7 @@ body {
 .form-control {
     border-radius: 8px;
 }
-.btn-primary {
-    border-radius: 8px;
-}
+
 .list-group-item {
     border-radius: 8px;
     margin-bottom: 5px;
@@ -69,10 +69,40 @@ body {
 .btn-outline-light {
     color: #ffffff;
     border-color: #ffffff;
+    padding: 0.5rem;
     margin: 0 5px;
 }
 .btn-outline-light:hover {
-    background-color: #ffffff;
-    color: #343a40;
-    border-color: #ffffff;
+    color: #ffffff;
+    border-color: #162831;
+    background-color: #162831;
+}
+
+.btn-primary {
+  background-color: #315668;
+}
+
+.btn-primary:hover {
+  background-color: #162831;
+  transition: all 1s ease;
+}
+
+.btn-warning {
+  background-color: #9e874d;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #6c5d35;
+  transition: all 1s ease;
+}
+
+.btn-danger {
+  background-color: #9e4d4d;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #6c3535;
+  transition: all 1s ease;
 }

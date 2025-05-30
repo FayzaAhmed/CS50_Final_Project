@@ -138,6 +138,63 @@ def join_group(group_id):
     conn.close()
     return redirect(url_for('groups'))
 
+# Leave group route
+@app.route('/leave_group/<int:group_id>')
+def leave_group(group_id):
+    if 'user_id' not in session:
+        flash('Please log in to leave a group.', 'danger')
+        return redirect(url_for('login'))
+    conn = sqlite3.connect('study_groups.db')
+    c = conn.cursor()
+    # Check if user is the creator
+    c.execute("SELECT creator_id FROM groups WHERE id = ?", (group_id,))
+    group = c.fetchone()
+    if not group:
+        flash('Group not found.', 'danger')
+        conn.close()
+        return redirect(url_for('my_groups'))
+    if group[0] == session['user_id']:
+        flash('You cannot leave a group you created. Consider deleting it instead.', 'danger')
+        conn.close()
+        return redirect(url_for('group_details', group_id=group_id))
+    # Remove user from group_members
+    c.execute("DELETE FROM group_members WHERE user_id = ? AND group_id = ?", (session['user_id'], group_id))
+    if c.rowcount == 0:
+        flash('You are not a member of this group.', 'danger')
+    else:
+        flash('You have left the group.', 'success')
+    conn.commit()
+    conn.close()
+    return redirect(url_for('my_groups'))
+
+# Delete group route
+@app.route('/delete_group/<int:group_id>')
+def delete_group(group_id):
+    if 'user_id' not in session:
+        flash('Please log in to delete a group.', 'danger')
+        return redirect(url_for('login'))
+    conn = sqlite3.connect('study_groups.db')
+    c = conn.cursor()
+    # Check if user is the creator
+    c.execute("SELECT creator_id FROM groups WHERE id = ?", (group_id,))
+    group = c.fetchone()
+    if not group:
+        flash('Group not found.', 'danger')
+        conn.close()
+        return redirect(url_for('my_groups'))
+    if group[0] != session['user_id']:
+        flash('Only the creator can delete this group.', 'danger')
+        conn.close()
+        return redirect(url_for('group_details', group_id=group_id))
+    # Delete related messages, group members, and the group
+    c.execute("DELETE FROM messages WHERE group_id = ?", (group_id,))
+    c.execute("DELETE FROM group_members WHERE group_id = ?", (group_id,))
+    c.execute("DELETE FROM groups WHERE id = ?", (group_id,))
+    conn.commit()
+    flash('Group deleted successfully.', 'success')
+    conn.close()
+    return redirect(url_for('my_groups'))
+
 # My groups route
 @app.route('/my_groups')
 def my_groups():
@@ -191,6 +248,23 @@ def group_details(group_id):
         flash('Message cannot be empty.', 'danger')
     conn.close()
     return render_template('group.html', group=group, members=members, messages=messages)
+
+# Search groups route
+@app.route('/search_groups', methods=['GET', 'POST'])
+def search_groups():
+    if request.method == 'POST':
+        search_query = request.form['search_query']
+        search_query = f"%{search_query}%"
+        conn = sqlite3.connect('study_groups.db')
+        c = conn.cursor()
+        c.execute("SELECT groups.id, groups.name, groups.subject, groups.description, users.username "
+                  "FROM groups JOIN users ON groups.creator_id = users.id "
+                  "WHERE groups.name LIKE ? OR groups.subject LIKE ?",
+                  (search_query, search_query))
+        groups = c.fetchall()
+        conn.close()
+        return render_template('groups.html', groups=groups, search_query=search_query[1:-1])
+    return redirect(url_for('groups'))
 
 if __name__ == '__main__':
     init_db()

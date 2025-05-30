@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
+<div class="jumbotron jumbotron-fluid text-center">
     <div class="home-content">
-        <h1 class="text-white">Welcome to Study Group Finder</h1>
+        <h1 class="display-4 text-white">Welcome to Study Group Finder</h1>
         <p class="lead text-white">Connect with students to form study groups for your favorite subjects! 📚</p>
         {% if session.user_id %}
             <p class="text-white">Welcome back, {{ session.username }}! Check out <a href="{{ url_for('groups') }}" class="btn btn-outline-light btn-sm">available groups</a>, <a href="{{ url_for('my_groups') }}" class="btn btn-outline-light btn-sm">your groups</a>, or <a href="{{ url_for('create_group') }}" class="btn btn-outline-light btn-sm">create your own</a>.</p>
@@ -10,4 +11,5 @@
             <p class="text-white">Get started by <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-sm">registering</a> or <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-sm">logging in</a>.</p>
         {% endif %}
     </div>
+</div>
 {% endblock %}
