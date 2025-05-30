@@ -1,6 +1,6 @@
 # Study Group Finder
-
-## Short Description
+## Video Demo:  [Study Group Finder](https://youtu.be/DkAirivwgpE?si=O3tVzU9mddH1tL9p)
+## Description
 Study Group Finder is a lightweight web application designed to help students connect and collaborate by creating and joining study groups. With features like group creation, announcements, messaging, and profile customization, it fosters an interactive learning environment tailored to various subjects and interests.
 
 ## Overview
