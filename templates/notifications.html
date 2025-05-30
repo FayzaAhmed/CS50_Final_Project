@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+    <div class="page-content">
+        <h1>Notifications</h1>
+        {% if notifications %}
+            <ul class="list-group">
+                {% for notification in notifications %}
+                    <li class="list-group-item">
+                        <strong>{{ notification[1] }}</strong> ({{ notification[2] }}): 
+                        {{ notification[3] or notification[4] or 'New activity' }}
+                        <a href="{{ url_for('group_details', group_id=notification[5]) }}" 
+                           class="btn btn-primary btn-sm">View</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No new notifications.</p>
+        {% endif %}
+    </div>
+{% endblock %}

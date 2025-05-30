@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+    <div class="page-content">
+        <h1>Profile</h1>
+        <h4>{{ user[0] }}</h4>
+        <p><strong>Bio:</strong> {{ user[1] or 'No bio yet.' }}</p>
+        <p><strong>Interests:</strong> {{ user[2] or 'No interests listed.' }}</p>
+        {% if session.username == user[0] %}
+            <h4>Edit Profile</h4>
+            <form method="post" action="{{ url_for('profile') }}">
+                <div class="mb-3">
+                    <label for="bio" class="form-label">Bio</label>
+                    <textarea class="form-control" id="bio" name="bio" rows="4">{{ user[1] or '' }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="interests" class="form-label">Interests (comma-separated)</label>
+                    <input type="text" class="form-control" id="interests" name="interests" value="{{ user[2] or '' }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

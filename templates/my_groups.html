@@ -13,7 +13,12 @@
                                 <h6 class="card-subtitle mb-2 text-muted">{{ group[2] }}</h6>
                                 <p class="card-text">{{ group[3] }}</p>
                                 <p class="card-text"><small class="text-muted">Created by {{ group[4] }}</small></p>
-                            
+                                <p class="card-text"><small class="text-muted">Tags: 
+                                    {% set group_id = group[0] %}
+                                    {% for tag in (tags_dict[group_id] if group_id in tags_dict else []) %}
+                                        {{ tag[0] }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </small></p>
                                 <div class="text-center">
                                     <a href="{{ url_for('group_details', group_id=group[0]) }}" class="btn btn-secondary btn-sm">View Details</a>
                                     {% if session.username == group[4] %}

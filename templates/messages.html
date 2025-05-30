@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+    <div class="page-content">
+        <h1>Messages</h1>
+        <h4>Send a Message</h4>
+        <form method="post" class="mb-3">
+            <div class="mb-3">
+                <label for="receiver" class="form-label">Recipient Username</label>
+                <input type="text" class="form-control" id="receiver" name="receiver" required>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Message</label>
+                <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+        <h4>Received Messages</h4>
+        {% if received %}
+            <ul class="list-group">
+                {% for msg in received %}
+                    <li class="list-group-item">
+                        <strong>{{ msg[0] }}</strong> ({{ msg[2] }}): {{ msg[1] }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No messages received.</p>
+        {% endif %}
+        <h4>Sent Messages</h4>
+        {% if sent %}
+            <ul class="list-group">
+                {% for msg in sent %}
+                    <li class="list-group-item">
+                        To <strong>{{ msg[0] }}</strong> ({{ msg[2] }}): {{ msg[1] }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No messages sent.</p>
+        {% endif %}
+    </div>
+{% endblock %}
