@@ -27,7 +27,7 @@ Study Group Finder is a web-based application built with Flask that allows users
 ### Setup
 1. Clone the repository:
    ```bash
-   git clone https://github.com/FayzaAhmed/CS50_Final_Project 
+   git clone https://github.com/FayzaAhmed/CS50_Final_Project
    cd study_group_finder
    ```
 2. Install dependencies:
@@ -38,7 +38,7 @@ Study Group Finder is a web-based application built with Flask that allows users
    - The application creates and migrates the SQLite database (`study_groups.db`) automatically on the first run.
 4. Run the application:
    ```bash
-   python app.py
+   flask run
    ```
 5. Open a web browser and go to `http://0.0.0.0:5001`.
 
